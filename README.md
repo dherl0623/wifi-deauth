@@ -10,7 +10,7 @@ To exit use <code>CTRL</code>+<code>C</code>. The interface will then be put bac
 
 <h1>Inspiration Credit</h1>
 Original "wifi jammer" code credit goes to Dan McInerney. <link>https://github.com/DanMcInerney/wifijammer</link> This script works
-really well, and I recommed you check it out!
+really well, and I recommend you check it out!
 <p>
 
 This is my very first bash script, and I would love to hear any suggestions you have or problems you run into as I would like to 
